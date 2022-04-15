@@ -13,7 +13,7 @@ export function parseRequest(req: IncomingMessage) {
     if (Array.isArray(theme)) {
         throw new Error('Expected a single theme');
     }
-    
+
     const arr = (pathname || '/').slice(1).split('.');
     let extension = '';
     let text = '';
@@ -52,14 +52,11 @@ function getArray(stringOrArray: string[] | string | undefined): string[] {
 
 function getDefaultImages(images: string[], theme: Theme): string[] {
     const defaultImage = theme === 'light'
-        ? 'https://assets.vercel.com/image/upload/front/assets/design/vercel-triangle-black.svg'
-        : 'https://assets.vercel.com/image/upload/front/assets/design/vercel-triangle-white.svg';
+        ? 'https://www.spontane.fun/_next/static/media/undraw_exploring_re_grb8.bd2d8142.svg'
+        : 'https://www.spontane.fun/_next/static/media/undraw_exploring_re_grb8.bd2d8142.svg';
 
     if (!images || !images[0]) {
         return [defaultImage];
-    }
-    if (!images[0].startsWith('https://assets.vercel.com/') && !images[0].startsWith('https://assets.zeit.co/')) {
-        images[0] = defaultImage;
     }
     return images;
 }
