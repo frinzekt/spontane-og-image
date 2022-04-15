@@ -104,6 +104,10 @@ function getCss(theme: string, fontSize: string, fontSizeSub: string) {
         font-style: normal;
         color: ${secondaryColor};
     }
+    
+    p{
+        margin: 0;
+    }
     `
     ;
 }
