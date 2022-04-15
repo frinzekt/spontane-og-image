@@ -185,9 +185,11 @@ const App = (_: any, state: AppState, setState: SetState) => {
     const {
         fileType = 'png',
         fontSize = '100px',
+        fontSizeSub = '50px',
         theme = 'light',
         md = true,
         text = '**Hello** World',
+        subtext = "I'm a subtext",
         images = [imageLightOptions[0].value],
         widths = [],
         heights = [],
@@ -201,10 +203,11 @@ const App = (_: any, state: AppState, setState: SetState) => {
     const mdValue = md ? '1' : '0';
     const imageOptions = theme === 'light' ? imageLightOptions : imageDarkOptions;
     const url = new URL(window.location.origin);
-    url.pathname = `${encodeURIComponent(text)}.${fileType}`;
+    url.pathname = `${encodeURIComponent(text)}.${encodeURIComponent(subtext)}.${fileType}`;
     url.searchParams.append('theme', theme);
     url.searchParams.append('md', mdValue);
     url.searchParams.append('fontSize', fontSize);
+    url.searchParams.append('fontSizeSub', fontSizeSub);
     for (let image of images) {
         url.searchParams.append('images', image);
     }
@@ -250,6 +253,14 @@ const App = (_: any, state: AppState, setState: SetState) => {
                     })
                 }),
                 H(Field, {
+                    label: 'Font Size Sub',
+                    input: H(Dropdown, {
+                        options: fontSizeOptions,
+                        value: fontSizeSub,
+                        onchange: (val: string) => setLoadingState({ fontSizeSub: val })
+                    })
+                }),
+                H(Field, {
                     label: 'Text Type',
                     input: H(Dropdown, {
                         options: markdownOptions,
@@ -264,6 +275,16 @@ const App = (_: any, state: AppState, setState: SetState) => {
                         oninput: (val: string) => {
                             console.log('oninput ' + val);
                             setLoadingState({ text: val, overrideUrl: url });
+                        }
+                    })
+                }),
+                H(Field, {
+                    label: 'Text Input Sub',
+                    input: H(TextInput, {
+                        value: subtext,
+                        oninput: (val: string) => {
+                            console.log('oninput ' + val);
+                            setLoadingState({ subtext: val, overrideUrl: url });
                         }
                     })
                 }),
